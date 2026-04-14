@@ -1,16 +1,8 @@
 /* ============================================================
-   main.js — Dashboard v4
-   Cambios respecto a v3:
-   - Drag & Drop nativo entre tarjetas (elimina el select "Mover a")
-   - Tarjetas: añadir, borrar y renombrar por campeón (sin afectar otros)
-   - Grid estable: CSS columns, las tarjetas no se afectan entre sí
-   - Export limpio: genera el bloque const lolData = {...}; listo para
-     sobrescribir data.js, respetando la sintaxis original
-   - Eliminado código duplicado (DOMContentLoaded doble, btnExportar redundante)
-   - localStorage + export/import
+   main.js
    ============================================================ */
 
-/* ── CATEGORÍAS POR DEFECTO ─────────────────────────────────── */
+/* CATEGORÍAS POR DEFECTO */
 const DEFAULT_CATEGORIES = [
   { key: 'starter',     label: 'Starter'     },
   { key: 'first_item',  label: '1st Item'    },
@@ -21,7 +13,7 @@ const DEFAULT_CATEGORIES = [
   { key: 'boots',       label: 'Boots'       },
 ];
 
-/* ── ESTADO ─────────────────────────────────────────────────── */
+/* ESTADO */
 function loadState() {
   try {
     const s = localStorage.getItem('lolbuilds_data');
@@ -38,10 +30,11 @@ function loadCategories() {
   return clone(DEFAULT_CATEGORIES);
 }
 
-/**
- * Carga las categorías personalizadas por campeón.
- * Estructura: { [champName]: [ { key, label }, ... ] }
- */
+/*
+  Carga las categorías personalizadas por campeón.
+  Estructura: { [champName]: [ { key, label }, ... ] }
+*/
+
 function loadChampCategories() {
   try {
     const s = localStorage.getItem('lolbuilds_champ_cats');
@@ -63,21 +56,21 @@ let categories       = loadCategories();
 let champCategories  = loadChampCategories(); // categorías propias por campeón
 let currentChamp     = null;
 let openNoteRow      = null;
-let openEditorRow    = null; // fila con editor inline abierto
+let openEditorRow    = null;                  // fila con editor inline abierto
 
 /* Retorna las categorías del campeón activo, o las globales si no tiene propias */
 function getCats(champName) {
   return champCategories[champName] || categories;
 }
 
-/* ── DOM ────────────────────────────────────────────────────── */
+/* DOM */
 const $sel   = document.getElementById('champion-selector');
 const $hero  = document.getElementById('champion-hero');
 const $grid  = document.getElementById('build-grid');
 const $modal = document.getElementById('admin-modal');
 const $toast = document.getElementById('toast');
 
-/* ── TOAST ──────────────────────────────────────────────────── */
+/* TOAST */
 let _tt;
 function toast(msg) {
   clearTimeout(_tt);
@@ -86,7 +79,7 @@ function toast(msg) {
   _tt = setTimeout(() => $toast.classList.remove('show'), 2200);
 }
 
-/* ── HELPERS DE ICONOS ──────────────────────────────────────── */
+/* HELPERS DE ICONOS */
 function makeIcon(item, cls) {
   if (item.icon) {
     const img = document.createElement('img');
@@ -105,7 +98,7 @@ function makePh(item, cls) {
   return d;
 }
 
-/* ── NOTA EXPANDIBLE ────────────────────────────────────────── */
+/* NOTA EXPANDIBLE */
 function openNote(row) {
   if (openNoteRow && openNoteRow !== row) closeNote(openNoteRow);
   row.classList.add('is-open');
@@ -123,7 +116,7 @@ function toggleNote(row) {
   row.classList.contains('is-open') ? closeNote(row) : openNote(row);
 }
 
-/* ── EDITOR INLINE ──────────────────────────────────────────── */
+/* EDITOR INLINE */
 function closeEditor() {
   if (!openEditorRow) return;
   const ed = openEditorRow.querySelector('.item-editor');
@@ -131,11 +124,11 @@ function closeEditor() {
   openEditorRow = null;
 }
 
-/**
- * Abre el editor inline para un ítem existente.
- * Se ha eliminado el select "Mover a tarjeta": el movimiento
- * ahora se hace exclusivamente mediante Drag & Drop.
- */
+/*
+  Abre el editor inline para un ítem existente.
+  Si ya hay otro editor abierto, lo cierra primero.
+*/
+
 function openEditor(row, champName, catKey, itemIdx) {
   if (openEditorRow && openEditorRow !== row) closeEditor();
   if (openEditorRow === row) { closeEditor(); return; }
@@ -217,7 +210,7 @@ function openEditor(row, champName, catKey, itemIdx) {
   setTimeout(() => inName.focus(), 0);
 }
 
-/* ── DRAG & DROP ────────────────────────────────────────────── */
+/* DRAG & DROP */
 // Almacena el estado de drag en curso
 const drag = {
   champName: null,
@@ -226,9 +219,10 @@ const drag = {
   row:       null,
 };
 
-/**
- * Inicializa los eventos dragstart / dragend en una fila de ítem.
- */
+/*
+  Inicializa los eventos dragstart / dragend en una fila de ítem.
+*/
+
 function attachDragToRow(row, champName, catKey, idx) {
   row.setAttribute('draggable', 'true');
 
@@ -251,10 +245,11 @@ function attachDragToRow(row, champName, catKey, idx) {
   });
 }
 
-/**
- * Inicializa los eventos dragover / drop en una tarjeta (card).
- * Permite soltar un ítem en cualquier posición dentro del body de la tarjeta.
- */
+/*
+  Inicializa los eventos dragover / drop en una tarjeta (card).
+  Permite soltar un ítem en cualquier posición dentro del body de la tarjeta.
+*/
+
 function attachDropToCard(card, champName, catKey) {
   const body = card.querySelector('.card-body');
 
@@ -275,7 +270,7 @@ function attachDropToCard(card, champName, catKey) {
   });
 
   card.addEventListener('dragleave', e => {
-    // Solo limpiar si realmente salimos de la card
+    // Solo limpiar si realmente salgo del card
     if (!card.contains(e.relatedTarget)) {
       card.classList.remove('drag-over');
       document.querySelectorAll('.drag-target-above').forEach(el => el.classList.remove('drag-target-above'));
@@ -321,17 +316,17 @@ function attachDropToCard(card, champName, catKey) {
   });
 }
 
-/* ── RENDER FILA DE ÍTEM ────────────────────────────────────── */
+/* RENDER FILA DE ÍTEM */
 function renderItemRow(item, champName, catKey, idx) {
   const row = document.createElement('div');
   row.className     = 'item-row';
-  row.dataset.idx   = idx; // usado por el drop target
+  row.dataset.idx   = idx;
 
   /* Handle de arrastre */
   const handle = document.createElement('span');
   handle.className   = 'drag-handle';
   handle.title       = 'Arrastrar';
-  handle.textContent = '⠿'; // carácter braille como icono de drag
+  handle.textContent = '⠿';
 
   /* Trigger principal */
   const trigger = document.createElement('button');
@@ -422,7 +417,7 @@ function renderItemRow(item, champName, catKey, idx) {
   return row;
 }
 
-/* ── RENDER TARJETA ─────────────────────────────────────────── */
+/* RENDER TARJETA */
 function renderCard(config, champName) {
   const items = (appData.champions[champName] || {})[config.key] || [];
 
@@ -463,7 +458,7 @@ function renderCard(config, champName) {
   const addBtn = document.createElement('button');
   addBtn.className = 'card-add-btn'; addBtn.title = 'Añadir ítem'; addBtn.textContent = '+';
 
-  /* Botón borrar tarjeta — solo afecta al campeón activo */
+  /* Botón borrar tarjeta que solo afecta al campeón activo */
   const delBtn = document.createElement('button');
   delBtn.className = 'card-del-btn'; delBtn.title = 'Borrar tarjeta'; delBtn.textContent = '✕';
   delBtn.addEventListener('click', e => {
@@ -524,7 +519,7 @@ function renderCard(config, champName) {
   return card;
 }
 
-/* ── FORMULARIO ADD ITEM INLINE ─────────────────────────────── */
+/* FORMULARIO ADD ITEM INLINE */
 function buildAddItemForm(champName, catKey) {
   const form = document.createElement('div');
   form.className = 'add-item-form';
@@ -596,7 +591,7 @@ function buildAddItemForm(champName, catKey) {
   return form;
 }
 
-/* ── BOTÓN "AÑADIR TARJETA" por campeón ─────────────────────── */
+/* BOTÓN "AÑADIR TARJETA" por campeón */
 function buildAddCardButton(champName) {
   const btn = document.createElement('button');
   btn.className    = 'btn-nav';
@@ -620,7 +615,7 @@ function buildAddCardButton(champName) {
   return btn;
 }
 
-/* ── RENDER CAMPEÓN ─────────────────────────────────────────── */
+/* RENDER CAMPEÓN */
 function renderChampion(name) {
   const champ = appData.champions[name];
   if (!champ) return;
@@ -639,7 +634,7 @@ function renderChampion(name) {
   const cats = getCats(name);
   cats.forEach(cfg => $grid.appendChild(renderCard(cfg, name)));
 
-  // Botón para añadir tarjeta nueva a este campeón (fuera del grid, bajo él)
+  // Botón para añadir tarjeta nueva a este campeón
   let addCardBtn = document.getElementById('add-card-btn');
   if (addCardBtn) addCardBtn.remove();
   addCardBtn    = buildAddCardButton(name);
@@ -656,7 +651,7 @@ function selectChampion(name) {
   renderChampion(name);
 }
 
-/* ── SELECTOR DE BURBUJAS ───────────────────────────────────── */
+/* SELECTOR DE BURBUJAS */
 function makeBubblePh(name) {
   const ph = document.createElement('div');
   ph.className = 'bubble-avatar-ph';
@@ -693,7 +688,7 @@ function fullRender() {
   if (first) selectChampion(first);
 }
 
-/* ── MODAL CAMPEONES ────────────────────────────────────────── */
+/* MODAL CAMPEONES */
 function openAdmin() {
   $modal.setAttribute('aria-hidden', 'false');
   $modal.classList.add('is-open');
@@ -802,14 +797,13 @@ function clearChampForm() {
   delete document.getElementById('champ-name').dataset.editing;
 }
 
-/* ── EXPORT ─────────────────────────────────────────────────── */
+/* EXPORT */
 /*
   Genera el bloque completo listo para sustituir data.js.
   Incluye las categorías propias de cada campeón si las tiene,
   y respeta la sintaxis original (const lolData = {...};).
-  Nota: el navegador puede bloquear la descarga por política de seguridad
-  si se sirve desde file://; abre el proyecto desde un servidor local.
 */
+
 function generateDataJs() {
   // Merge: cada campeón lleva sus categorías si difieren de las globales
   const payload = {
@@ -831,7 +825,7 @@ document.getElementById('btn-export').addEventListener('click', () => {
   toast('Exportado ✓');
 });
 
-/* ── GUARDAR Y DESCARGAR (data.js directo) ──────────────────── */
+/* GUARDAR Y DESCARGAR */
 document.getElementById('btnExportar').addEventListener('click', () => {
   try {
     const js   = generateDataJs();
@@ -851,7 +845,7 @@ document.getElementById('btnExportar').addEventListener('click', () => {
   }
 });
 
-/* ── IMPORT ─────────────────────────────────────────────────── */
+/* IMPORT */
 document.getElementById('btn-import').addEventListener('click', () => {
   document.getElementById('file-import').value = '';
   document.getElementById('file-import').click();
@@ -883,5 +877,5 @@ document.getElementById('file-import').addEventListener('change', e => {
   reader.readAsText(file);
 });
 
-/* ── INIT ───────────────────────────────────────────────────── */
+/* INIT */
 document.addEventListener('DOMContentLoaded', fullRender);
