@@ -223,15 +223,26 @@ textarea { resize: vertical; }
   border-bottom: 1px solid var(--border);
 }
 
-/* 7. BUILD GRID, masonry para independencia de columnas */
+/* 7. BUILD GRID
+   Usamos CSS columns (masonry) para independencia de columnas.
+   Cada columna es autónoma: el crecimiento de una tarjeta
+   no afecta la altura ni posición de las otras. */
 .build-grid {
   columns: 3;
   column-gap: 20px;
 }
 
+/* break-inside: avoid impide que una tarjeta se parta entre columnas.
+   align-self no aplica en columns, por lo que las tarjetas ya son
+   independientes por defecto. */
 .build-grid .card {
   break-inside: avoid;
   margin-bottom: 20px;
+  /* display: inline-block hace que cada tarjeta ocupe solo su contenido
+     y evita el colapso de márgenes que puede romper el masonry */
+  display: inline-block;
+  width: 100%;
+  vertical-align: top;
 }
 
 @media (max-width: 960px) { .build-grid { columns: 2; } }
@@ -249,6 +260,12 @@ textarea { resize: vertical; }
   border-radius: var(--radius-lg);
   overflow: hidden;
   transition: border-color var(--ease);
+}
+
+/* Estado drag-over: resaltar la tarjeta destino */
+.card.drag-over {
+  border-color: var(--accent-border);
+  background: var(--bg-card-hover);
 }
 
 .card-header {
@@ -278,6 +295,11 @@ textarea { resize: vertical; }
   letter-spacing: 0;
 }
 
+/* Acciones del header: botón + añadir ítem y botón borrar tarjeta */
+.card-header-actions {
+  display: flex; align-items: center; gap: 4px; flex-shrink: 0;
+}
+
 /* Botón + añadir ítem */
 .card-add-btn {
   width: 20px; height: 20px;
@@ -295,6 +317,26 @@ textarea { resize: vertical; }
   background: var(--accent-dim);
 }
 
+/* Botón borrar tarjeta (visible en hover del header) */
+.card-del-btn {
+  width: 20px; height: 20px;
+  border-radius: 50%;
+  border: 1px solid transparent;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 10px; line-height: 1;
+  color: var(--text-3); flex-shrink: 0;
+  opacity: 0;
+  transition: all var(--ease);
+}
+
+.card-header:hover .card-del-btn { opacity: 1; }
+
+.card-del-btn:hover {
+  border-color: rgba(220,60,60,0.4);
+  color: #dc3c3c;
+  background: rgba(220,60,60,0.08);
+}
+
 .card-body { display: flex; flex-direction: column; }
 
 /* 9. ITEM ROW */
@@ -307,6 +349,16 @@ textarea { resize: vertical; }
 .item-row.is-open > .item-trigger .item-icon-ph { border-color: var(--accent-border); }
 .item-row.is-open > .item-trigger .chevron { transform: rotate(180deg); color: var(--accent); }
 
+/* Estado de drag del ítem */
+.item-row.dragging {
+  opacity: 0.4;
+}
+
+/* Zona de drop: línea visual entre ítems */
+.item-row.drag-target-above {
+  border-top: 2px solid var(--accent-border);
+}
+
 .item-trigger {
   display: flex; align-items: center; gap: 10px;
   padding: 9px 14px;
@@ -318,6 +370,30 @@ textarea { resize: vertical; }
 
 /* Botones editar/borrar que aparecen en hover */
 .item-trigger:hover .item-actions { opacity: 1; }
+/* El drag handle también se muestra en hover */
+.item-trigger:hover .drag-handle { opacity: 1; }
+
+/* 9a. DRAG HANDLE */
+.drag-handle {
+  cursor: grab;
+  color: var(--text-3);
+  font-size: 11px;
+  opacity: 0;
+  flex-shrink: 0;
+  padding: 2px 3px;
+  border-radius: 3px;
+  transition: opacity var(--ease), color var(--ease), background var(--ease);
+  /* Los 6 puntos del handle */
+  display: flex; align-items: center; justify-content: center;
+  width: 14px;
+}
+
+.drag-handle:hover {
+  color: var(--text-2);
+  background: var(--accent-dim);
+}
+
+.drag-handle:active { cursor: grabbing; }
 
 .item-actions {
   display: flex; gap: 3px;
@@ -413,10 +489,10 @@ textarea { resize: vertical; }
 
 .item-stat { font-size: 12px; line-height: 1.5; color: var(--text-2); }
 
-.stat-value { 
+.stat-value {
   color: #eaeaec;
-  font-weight: 600; 
-  font-variant-numeric: tabular-nums; 
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
 }
 
 .item-panel-analysis { padding-bottom: 12px; }
@@ -433,6 +509,20 @@ textarea { resize: vertical; }
 
 /* 11. CARD EMPTY */
 .card-empty { padding: 16px 14px; font-size: 12px; color: var(--text-3); font-style: italic; }
+
+/* Zona de drop vacía dentro de la tarjeta: se activa cuando se arrastra encima */
+.card-drop-zone {
+  min-height: 36px;
+  border: 1px dashed transparent;
+  border-radius: var(--radius-sm);
+  margin: 6px;
+  transition: border-color var(--ease), background var(--ease);
+}
+
+.card.drag-over .card-drop-zone {
+  border-color: rgba(255,255,255,0.15);
+  background: rgba(255,255,255,0.03);
+}
 
 /* 12. INLINE ITEM EDITOR */
 .item-editor {

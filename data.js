@@ -5,26 +5,14 @@ const lolData = {
             "role": "Top",
             "starter": [
                 {
-                    "id": "dorans_ring",
-                    "name": "Doran's Ring",
-                    "icon": "https://ddragon.leagueoflegends.com/cdn/14.24.1/img/item/1056.png",
-                    "stats": [
-                        "+18 Ability Power",
-                        "+90 Health",
-                        "Passive: Restore 1 mana/s, increased to 1.5/s for 10s after damaging an enemy champion. If you can't gain mana, heals for 45% of this value instead.",
-                        "Passive: Basic attacks deal 5 bonus physical damage on-hit against minions."
-                    ],
-                    "description": "El inicio estándar en build AP. El AP extra y el maná hacen que el early poke sea más amenazante. Matchups equilibrados o favorables."
-                },
-                {
                     "id": "dorans_shield",
                     "name": "Doran's Shield",
                     "icon": "https://ddragon.leagueoflegends.com/cdn/14.24.1/img/item/1054.png",
                     "stats": [
                         "+110 Health",
                         "+4 Health Regen / 5 sec",
-                        "Passive: After taking damage from a champion, gain 0–40 HP regeneration over 8s (scaled by missing health). 66% effective for ranged champions or when triggered by AoE, DoT, or proc.",
-                        "Passive: Basic attacks deal 5 bonus physical damage on-hit against minions."
+                        "Passive Endure: After taking damage from a champion, gain 0–40 HP regeneration over 8s (scaled by missing health). 66% effective for ranged champions or when triggered by AoE, DoT, or proc.",
+                        "Passive Focus: Basic attacks deal 5 bonus physical damage on-hit against minions."
                     ],
                     "description": "Inicio defensivo para matchups duros donde me van a hacer mucho daño (Darius, Fiora, Renekton). La curación pasiva me permite quedarme en lane y farmear sin perder mucha vida."
                 },
@@ -35,7 +23,7 @@ const lolData = {
                     "stats": [
                         "+15 Ability Power",
                         "+50 Health",
-                        "Passive: Gain 2 stacks per champion kill and 1 per assist, up to 10 stacks. Each stack grants +4 AP (up to +40 AP). Lose 5 stacks on death. Stacks are preserved when upgrading to Mejai's Soulstealer."
+                        "Passive Glory: Gain 2 stacks per champion kill and 1 per assist, up to 10 stacks. Each stack grants +4 AP (up to +40 AP). Lose 5 stacks on death. Stacks are preserved when upgrading to Mejai's Soulstealer."
                     ],
                     "description": "Solo si voy a intentar snowball agresivo desde el nivel 1. Si consigo las primeras cargas rápido, se convierte en Mejai's y el AP escala exageradamente."
                 }
@@ -119,14 +107,16 @@ const lolData = {
             ],
             "third_item": [
                 {
-                    "id": "void_staff",
-                    "name": "Void Staff",
-                    "icon": "https://ddragon.leagueoflegends.com/cdn/14.24.1/img/item/3135.png",
+                    "id": "dorans_ring",
+                    "name": "Doran's Ring",
+                    "icon": "https://ddragon.leagueoflegends.com/cdn/14.24.1/img/item/1056.png",
                     "stats": [
-                        "+95 Ability Power",
-                        "+40% Magic Penetration"
+                        "+18 Ability Power",
+                        "+90 Health",
+                        "Passive Drain: Restore 1 mana/s, increased to 1.5/s for 10s after damaging an enemy champion. If you can't gain mana, heals for 45% of this value instead.",
+                        "Passive Focus: Basic attacks deal 5 bonus physical damage on-hit against minions."
                     ],
-                    "description": "Cuando los enemigos empiezan a comprar resistencia mágica (y siempre lo hacen de tercero en adelante). Tiene un 40% de penetración mágica y ese stat es una barbaridad. Ademas junto con el Liandry o Malignance, el Void hace que el daño por porcentaje de vida de estos objetos sea mucho más efectivo."
+                    "description": "El inicio estándar en build AP. El AP extra y el maná hacen que el early poke sea más amenazante. Matchups equilibrados o favorables."
                 },
                 {
                     "id": "bloodletter's_curse",
@@ -190,6 +180,16 @@ const lolData = {
                 }
             ],
             "situational": [
+                {
+                    "id": "void_staff",
+                    "name": "Void Staff",
+                    "icon": "https://ddragon.leagueoflegends.com/cdn/14.24.1/img/item/3135.png",
+                    "stats": [
+                        "+95 Ability Power",
+                        "+40% Magic Penetration"
+                    ],
+                    "description": "Cuando los enemigos empiezan a comprar resistencia mágica (y siempre lo hacen de tercero en adelante). Tiene un 40% de penetración mágica y ese stat es una barbaridad. Ademas junto con el Liandry o Malignance, el Void hace que el daño por porcentaje de vida de estos objetos sea mucho más efectivo."
+                },
                 {
                     "id": "lich_bane",
                     "name": "Lich Bane",
@@ -293,8 +293,8 @@ const lolData = {
                     "stats": [
                         "+110 Health",
                         "+4 Health Regen / 5 sec",
-                        "Passive: After taking damage from a champion, gain 0–40 HP regeneration over 8s (scaled by missing health). 66% effective for ranged champions or when triggered by AoE, DoT, or proc.",
-                        "Passive: Basic attacks deal 5 bonus physical damage on-hit against minions."
+                        "Passive Endure: After taking damage from a champion, gain 0–40 HP regeneration over 8s (scaled by missing health). 66% effective for ranged champions or when triggered by AoE, DoT, or proc.",
+                        "Passive Focus: Basic attacks deal 5 bonus physical damage on-hit against minions."
                     ],
                     "description": ""
                 },
@@ -303,70 +303,9 @@ const lolData = {
                     "name": "Refillable Potion",
                     "icon": "https://wiki.leagueoflegends.com/en-us/images/Refillable_Potion_item.png?f3a1b",
                     "stats": [
-                        "Passive: Holds up to 2 charges that refill upon visiting the shop.",
-                        "Passive: Consumes a charge to restore 100 HP over 12 seconds."
+                        "\"Passive: Holds up to 2 charges that refill upon visiting the shop.\",\"Passive: Consumes a charge to restore 100 HP over 12 seconds.\""
                     ],
                     "description": "Comprar si me veo capaz de farmear los 3 primeros minions de la wave y luego me hago el escudo de doran en un arbusto."
-                }
-            ],
-            "first_item": [
-                {
-                    "id": "unending_despair",
-                    "name": "Unending Despair",
-                    "icon": "https://ddragon.leagueoflegends.com/cdn/14.24.1/img/item/2502.png",
-                    "stats": [
-                        "+15 Ability Haste",
-                        "+400 Health",
-                        "+50 Armor",
-                        "Passive: While in combat with champions, deal 30 (+2% bonus HP) magic damage to nearby enemies and heal for 190% of the damage dealt every 7s"
-                    ],
-                    "description": ""
-                },
-                {
-                    "id": "kaenic_rookern",
-                    "name": "Kaenic Rookern",
-                    "icon": "https://ddragon.leagueoflegends.com/cdn/14.24.1/img/item/2504.png",
-                    "stats": [
-                        "+80 Magic Resistance",
-                        "+400 Health",
-                        "+15 Ability Haste",
-                        "Passive: After not taking magic damage for 15s, gain a magic shield for 18% of your maximum HP."
-                    ],
-                    "description": ""
-                },
-                {
-                    "id": "heartsteel",
-                    "name": "Heartsteel",
-                    "icon": "https://wiki.leagueoflegends.com/en-us/images/Heartsteel_item.png?be381",
-                    "stats": [
-                        "+900 Health",
-                        "+100% Base Health Regeneration",
-                        "Passive: Within 700 units of a champion, generate stacks over 3s. Your next basic attack consumes them to deal 70 (+6% max HP) bonus physical damage and grants permanent bonus HP equal to 8% of that amount (30s CD per target).",
-                        "Passive: Gain 0% – 30% increased size based on maximum health."
-                    ],
-                    "description": ""
-                },
-                {
-                    "id": "protoplasm_harness",
-                    "name": "Protoplasm Harness",
-                    "icon": "https://wiki.leagueoflegends.com/en-us/images/Protoplasm_Harness_item.png?2d12a",
-                    "stats": [
-                        "+20 Ability Haste",
-                        "+600 Health",
-                        "Passive: Taking damage that drops you below 30% HP grants 200–312 bonus HP and heals for 200–424 (+175% bonus Armor/MR) over 5s. Also grants 15% size, 10% MS, and 25% Tenacity (90s CD)."
-                    ],
-                    "description": ""
-                }
-            ],
-            "second_item": [
-                {
-                    "id": "chain_vest",
-                    "name": "Chain Vest",
-                    "icon": "https://wiki.leagueoflegends.com/en-us/images/Chain_Vest_item.png?d4a35",
-                    "stats": [
-                        "+40 Armor"
-                    ],
-                    "description": ""
                 },
                 {
                     "id": "ruby_crystal",
@@ -378,26 +317,6 @@ const lolData = {
                     "description": ""
                 },
                 {
-                    "id": "bramble_vest",
-                    "name": "Bramble Vest",
-                    "icon": "https://wiki.leagueoflegends.com/en-us/images/Bramble_Vest_item.png?47b72",
-                    "stats": [
-                        "+30 Armor",
-                        "Passive: When struck by a basic attack, deal 10 magic damage to the attacker and, if they are a champion, inflict 40% Grievous Wounds for 3 seconds."
-                    ],
-                    "description": "Anti-curas"
-                },
-                {
-                    "id": "warden_s_mail",
-                    "name": "Warden's Mail",
-                    "icon": "https://wiki.leagueoflegends.com/en-us/images/Warden%27s_Mail_item.png?2ac93",
-                    "stats": [
-                        "+40 Armor",
-                        "Passive: Every first incoming instance of post-mitigation basic damage per cast is reduced by 15 (max 20% reduction per instance)."
-                    ],
-                    "description": "Anti-dps"
-                },
-                {
                     "id": "rejuvenation_bead",
                     "name": "Rejuvenation Bead",
                     "icon": "https://wiki.leagueoflegends.com/en-us/images/Rejuvenation_Bead_item.png?8103b",
@@ -407,70 +326,54 @@ const lolData = {
                     "description": ""
                 }
             ],
-            "third_item": [
+            "first_item": [
                 {
-                    "id": "abyssal_mask",
-                    "name": "Abyssal Mask",
-                    "icon": "https://wiki.leagueoflegends.com/en-us/images/Abyssal_Mask_item.png?2d12a",
+                    "id": "unending_despair",
+                    "name": "Unending Despair",
+                    "icon": "https://ddragon.leagueoflegends.com/cdn/14.24.1/img/item/2502.png",
                     "stats": [
                         "+15 Ability Haste",
-                        "+45 Magic Resistance",
-                        "+350 Health",
-                        "Passive: Nearby enemy champions are cursed, increasing magic damage they take from all sources by 12%."
+                        "+400 Health",
+                        "+50 Armor",
+                        "Passive Anguish: While in combat with champions, deal 30 (+2% bonus HP) magic damage to nearby enemies and heal for 190% of the damage dealt every 7s"
                     ],
                     "description": ""
                 },
                 {
-                    "id": "force_of_nature",
-                    "name": "Force of Nature",
-                    "icon": "https://wiki.leagueoflegends.com/en-us/images/Force_of_Nature_item.png?36bff",
+                    "id": "protoplasm_harness",
+                    "name": "Protoplasm Harness",
+                    "icon": "https://wiki.leagueoflegends.com/en-us/images/Protoplasm_Harness_item.png?2d12a",
                     "stats": [
-                        "+55 Magic Resistance",
-                        "+400 Health",
-                        "+4% Movement Speed",
-                        "Passive: Taking magic damage or being immobilized grants a stack (max 8) for 7s. At max stacks, gain 70 bonus MR and 6% bonus MS."
-                    ],
-                    "description": ""
-                },
-                {
-                    "id": "spirit_visage",
-                    "name": "Spirit Visage",
-                    "icon": "https://wiki.leagueoflegends.com/en-us/images/Spirit_Visage_item.png?3a1b2",
-                    "stats": [
-                        "+10 Ability Haste",
-                        "+50 Magic Resistance",
-                        "+400 Health",
-                        "+100% Base Health Regeneration",
-                        "Passive: Increases all healing, shielding, and HP regeneration received by 25%."
+                        "+20 Ability Haste",
+                        "+600 Health",
+                        "Passive Lifeline: Taking damage that drops you below 30% HP grants 200–312 bonus HP and heals for 200–424 (+175% bonus Armor/MR) over 5s. Also grants 15% size, 10% MS, and 25% Tenacity (90s CD)."
                     ],
                     "description": ""
                 }
             ],
+            "second_item": [
+                {
+                    "id": "wardens_mail",
+                    "name": "Warden's Mail",
+                    "icon": "https://wiki.leagueoflegends.com/en-us/images/Warden%27s_Mail_item.png?2ac93",
+                    "stats": [
+                        "+40 Armor",
+                        "Passive Rock Solid: Reduces incoming damage from basic attacks by 15 (capped at 20% of the attack's damage)."
+                    ],
+                    "description": "Anti-dps"
+                },
+                {
+                    "id": "bramble_vest",
+                    "name": "Bramble Vest",
+                    "icon": "https://ddragon.leagueoflegends.com/cdn/14.24.1/img/item/3076.png",
+                    "stats": [
+                        "+30 Armor",
+                        "Passive Thorns: Being hit by a basic attack deals 10 magic damage to the attacker and inflicts Grievous Wounds for 3s if they are a champion."
+                    ],
+                    "description": "Anti-curas"
+                }
+            ],
             "fourth_item": [
-                {
-                    "id": "randuins_omen",
-                    "name": "Randuin's Omen",
-                    "icon": "https://ddragon.leagueoflegends.com/cdn/14.24.1/img/item/3143.png",
-                    "stats": [
-                        "+350 Health",
-                        "+75 Armor",
-                        "Passive: Critical strikes deal 30% less damage to you.",
-                        "Passive: Reduce incoming damage from basic attacks by up to 5 (+3.5 per 1000 max HP), capped at 20% of the attack's damage."
-                    ],
-                    "description": ""
-                },
-                {
-                    "id": "jaks_ho",
-                    "name": "Jak'Sho",
-                    "icon": "https://ddragon.leagueoflegends.com/cdn/14.24.1/img/item/6665.png",
-                    "stats": [
-                        "+45 Armor",
-                        "+350 Health",
-                        "+45 Magic Resistance",
-                        "Passive: Gain 1 stack/s in combat with champions (max 5). At max stacks, increase bonus Armor and MR by 30% until end of combat."
-                    ],
-                    "description": ""
-                },
                 {
                     "id": "frozen_heart",
                     "name": "Frozen Heart",
@@ -479,7 +382,19 @@ const lolData = {
                         "+20 Ability Haste",
                         "+75 Armor",
                         "+400 Mana",
-                        "Passive: Cripples the attack speed of nearby enemies by 20%."
+                        "Passive Winter's Caress: Cripples the attack speed of nearby enemies by 20%."
+                    ],
+                    "description": ""
+                },
+                {
+                    "id": "randuins_omen",
+                    "name": "Randuin's Omen",
+                    "icon": "https://ddragon.leagueoflegends.com/cdn/14.24.1/img/item/3143.png",
+                    "stats": [
+                        "+350 Health",
+                        "+75 Armor",
+                        "Passive Humility: Critical strikes deal 30% less damage to you.",
+                        "Passive Rock Solid: Reduce incoming damage from basic attacks by up to 5 (+3.5 per 1000 max HP), capped at 20% of the attack's damage."
                     ],
                     "description": ""
                 },
@@ -491,7 +406,7 @@ const lolData = {
                         "+1000 Health",
                         "+100% Base Health Regeneration",
                         "Passive: Grants Warmog's Heart if you have at least 2000 bonus HP.",
-                        "Passive: Regenerate 1.5% max HP every 0.5s if no damage is taken for 8s (3s for non-champions).",
+                        "Passive Warmog's Heart: Regenerate 1.5% max HP every 0.5s if no damage is taken for 8s (3s for non-champions).",
                         "Passive Warmog's Vitality: Gain bonus HP equal to 12% bonus HP from items."
                     ],
                     "description": ""
@@ -499,15 +414,15 @@ const lolData = {
             ],
             "situational": [
                 {
-                    "id": "dead_man_s_plate",
-                    "name": "Dead Man's Plate",
-                    "icon": "https://wiki.leagueoflegends.com/en-us/images/Dead_Man%27s_Plate_item.png?39161",
+                    "id": "hollow_radiance",
+                    "name": "Hollow Radiance",
+                    "icon": "https://ddragon.leagueoflegends.com/cdn/14.24.1/img/item/6664.png",
                     "stats": [
-                        "+55 Armor",
-                        "+350 Health",
-                        "+4% Movement Speed",
-                        "Passive: While moving, generates up to 100 stacks of Momentum, granting up to 20 bonus movement speed. Basic attacks consume all stacks to deal 0 – 40 (+0% – 100% base AD) bonus physical damage on-hit.",
-                        "Passive: Gain 15% slow resist."
+                        "+10 Ability Power",
+                        "+40 Magic Resistance",
+                        "+400 Health",
+                        "Passive Immolate: Dealing or taking damage deals 15 (+1.75% bonus HP) magic damage/s to nearby enemies (increased by 25% vs minions).",
+                        "Passive Desolate: Killing an enemy deals 60 (+3.5% bonus HP) magic damage in an area."
                     ],
                     "description": ""
                 },
@@ -518,21 +433,22 @@ const lolData = {
                     "stats": [
                         "+40 Attack Damage",
                         "+600 Health",
-                        "Passive: Basic attacks deal (1% / 0.5%) max HP bonus physical damage on-hit, plus (3% / 1.5%) max HP physical damage to enemies in a cone.",
-                        "Active: Next basic attack resets timer and deals (4% / 2%) max HP bonus physical damage to the target and (9% / 4.5%) max HP to nearby enemies (10s CD)."
+                        "Passive Cleave: Basic attacks deal (1% / 0.5%) max HP bonus physical damage on-hit, plus (3% / 1.5%) max HP physical damage to enemies in a cone.",
+                        "Active Titanic Crescent: Next basic attack resets timer and deals (4% / 2%) max HP bonus physical damage to the target and (9% / 4.5%) max HP to nearby enemies (10s CD)."
                     ],
                     "description": ""
                 },
                 {
-                    "id": "hollow_radiance",
-                    "name": "Hollow Radiance",
-                    "icon": "https://ddragon.leagueoflegends.com/cdn/14.24.1/img/item/6664.png",
+                    "id": "dead_man_s_plate",
+                    "name": "Dead Man's Plate",
+                    "icon": "https://wiki.leagueoflegends.com/en-us/images/Dead_Man%27s_Plate_item.png?39161",
                     "stats": [
-                        "+10 Ability Power",
-                        "+40 Magic Resistance",
-                        "+400 Health",
-                        "Passive: Dealing or taking damage deals 15 (+1.75% bonus HP) magic damage/s to nearby enemies (increased by 25% vs minions).",
-                        "Passive: Killing an enemy deals 60 (+3.5% bonus HP) magic damage in an area."
+                        "+55 Armor",
+                        "+350 Health",
+                        "+4% Movement Speed",
+                        "Passive: While moving, generates 7 stacks of Momentum every 0.25s, granting up to 20 bonus movement speed at 100 stacks.",
+                        "Passive: Basic attacks consume all stacks to deal 0 – 40 (+0% – 100% base AD) bonus physical damage on-hit based on Momentum.",
+                        "Passive: Gain 15% slow resist."
                     ],
                     "description": ""
                 },
@@ -545,8 +461,34 @@ const lolData = {
                         "+40 Armor",
                         "+200 Health",
                         "+100% Base Health Regeneration",
-                        "Active: Designate an allied champion as Worthy to form a tether (60s CD; 1250 range).\",",
-                        "Passive: While tethered and above 30% max HP, redirect 12% of the pre-mitigation damage taken by your ally to yourself. Additionally, heal for 10% of the post-mitigation damage your ally deals to champions."
+                        "Active: Designate an allied champion as Worthy to form a tether (60s CD; 1250 range).",
+                        "Passive: While tethered and above 30% max HP, redirect 12% of the pre-mitigation damage taken by your ally to yourself.",
+                        "Passive: Heal for 10% of the post-mitigation damage your ally deals to champions."
+                    ],
+                    "description": ""
+                },
+                {
+                    "id": "heartsteel",
+                    "name": "Heartsteel",
+                    "icon": "https://wiki.leagueoflegends.com/en-us/images/Heartsteel_item.png?be381",
+                    "stats": [
+                        "+900 Health",
+                        "+100% Base Health Regeneration",
+                        "Passive: While within 700 units of an enemy champion, generate stacks up to 3 over 3 seconds.\",",
+                        "Passive: Your next basic attack against a target with 3 stacks deals 70 (+6% max HP) bonus physical damage and grants permanent health equal to 8% of that amount (30s CD per target).",
+                        "Passive: Gain 0% – 30% (based on max HP) increased size."
+                    ],
+                    "description": ""
+                },
+                {
+                    "id": "thornmail",
+                    "name": "Thornmail",
+                    "icon": "https://wiki.leagueoflegends.com/en-us/images/Thornmail_item.png?949f9",
+                    "stats": [
+                        "+75 Armor",
+                        "+150 Health",
+                        "Passive: When struck by a basic attack on-hit, deal 20 (+10% bonus armor) magic damage to the attacker.",
+                        "Passive: If the attacker is a champion, inflict them with Grievous Wounds for 3 seconds."
                     ],
                     "description": ""
                 }
@@ -566,6 +508,69 @@ const lolData = {
                     "stats": [],
                     "description": "(Mercuris)"
                 }
+            ],
+            "mr_items_1776168617985": [
+                {
+                    "id": "spirit_visage",
+                    "name": "Spirit Visage",
+                    "icon": "https://wiki.leagueoflegends.com/en-us/images/Spirit_Visage_item.png?3a1b2",
+                    "stats": [
+                        "+10 Ability Haste",
+                        "+50 Magic Resistance",
+                        "+400 Health",
+                        "+100% Base Health Regeneration",
+                        "Passive Boundless Vitality: Increases all healing, shielding, and HP regeneration received by 25%."
+                    ],
+                    "description": ""
+                },
+                {
+                    "id": "abyssal_mask",
+                    "name": "Abyssal Mask",
+                    "icon": "https://wiki.leagueoflegends.com/en-us/images/Abyssal_Mask_item.png?2d12a",
+                    "stats": [
+                        "+15 Ability Haste",
+                        "+45 Magic Resistance",
+                        "+350 Health",
+                        "Passive Unmake: Nearby enemy champions are cursed, increasing magic damage they take from all sources by 12%."
+                    ],
+                    "description": ""
+                },
+                {
+                    "id": "kaenic_rookern",
+                    "name": "Kaenic Rookern",
+                    "icon": "https://ddragon.leagueoflegends.com/cdn/14.24.1/img/item/2504.png",
+                    "stats": [
+                        "+80 Magic Resistance",
+                        "+400 Health",
+                        "+15 Ability Haste",
+                        "Passive Magebane: After not taking magic damage for 15s, gain a magic shield for 18% of your maximum HP."
+                    ],
+                    "description": ""
+                },
+                {
+                    "id": "force_of_nature",
+                    "name": "Force of Nature",
+                    "icon": "https://wiki.leagueoflegends.com/en-us/images/Force_of_Nature_item.png?36bff",
+                    "stats": [
+                        "+55 Magic Resistance",
+                        "+400 Health",
+                        "+4% Movement Speed",
+                        "Passive Steadfast: Taking magic damage or being immobilized grants a stack (max 8) for 7s. At max stacks, gain 70 bonus MR and 6% bonus MS."
+                    ],
+                    "description": ""
+                },
+                {
+                    "id": "jaks_ho",
+                    "name": "Jak'Sho",
+                    "icon": "https://ddragon.leagueoflegends.com/cdn/14.24.1/img/item/6665.png",
+                    "stats": [
+                        "+45 Armor",
+                        "+350 Health",
+                        "+45 Magic Resistance",
+                        "Passive Voidborn Resilience: Gain 1 stack/s in combat with champions (max 5). At max stacks, increase bonus Armor and MR by 30% until end of combat."
+                    ],
+                    "description": ""
+                }
             ]
         }
     },
@@ -576,7 +581,7 @@ const lolData = {
         },
         {
             "key": "first_item",
-            "label": "MAIN ITEMS"
+            "label": "Main Items"
         },
         {
             "key": "second_item",
@@ -584,7 +589,7 @@ const lolData = {
         },
         {
             "key": "third_item",
-            "label": "MR Items"
+            "label": "3rd Item"
         },
         {
             "key": "fourth_item",
@@ -598,5 +603,38 @@ const lolData = {
             "key": "boots",
             "label": "Boots"
         }
-    ]
+    ],
+    "champCategories": {
+        "Ornn": [
+            {
+                "key": "starter",
+                "label": "Starter"
+            },
+            {
+                "key": "first_item",
+                "label": "Main Items"
+            },
+            {
+                "key": "second_item",
+                "label": "Half Items"
+            },
+            {
+                "key": "fourth_item",
+                "label": "Final Items"
+            },
+            {
+                "key": "situational",
+                "label": "Situational"
+            },
+            {
+                "key": "boots",
+                "label": "Boots"
+            },
+            {
+                "key": "mr_items_1776168617985",
+                "label": "MR Items"
+            }
+        ]
+    }
 };
+
