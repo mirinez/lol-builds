@@ -684,4 +684,7 @@ if (btnExportarManual) {
             alert("Hubo un problema al generar el archivo");
         }
     });
+    document.addEventListener('DOMContentLoaded', () => {
+    fullRender();
+});
 }

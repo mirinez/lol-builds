@@ -1,4 +1,4 @@
-export const lolData = {
+const lolData = {
     "champions": {
         "Teemo": {
             "icon": "https://ddragon.leagueoflegends.com/cdn/14.24.1/img/champion/Teemo.png",
