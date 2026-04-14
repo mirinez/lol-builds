@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LoL Builds</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <header class="navbar">
+    <div class="navbar-inner">
+      <span class="navbar-brand"></span>
+      <div class="navbar-actions">
+        <button class="btn-nav" id="btn-import">↓ Importar</button>
+        <button class="btn-nav" id="btn-export">↑ Exportar</button>
+        <button class="btn-nav" id="btn-admin">+ Campeón</button>
+        <button class="btn-nav" id="btnExportar">Guardar y descargar</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="main">
+    <div class="container">
+      <div class="champion-selector" id="champion-selector"></div>
+      <div class="champion-hero" id="champion-hero"></div>
+      <div class="overview-label">Overview</div>
+      <div class="build-grid" id="build-grid"></div>
+      <div id="contenedor-campeones"></div>
+    </div>
+  </main>
+
+  <!-- MODAL solo para gestión de campeones -->
+  <div class="modal-overlay" id="admin-modal" aria-hidden="true">
+    <div class="modal" role="dialog" aria-modal="true">
+      <div class="modal-header">
+        <h2 class="modal-title">Campeones</h2>
+        <button class="modal-close" id="modal-close">✕</button>
+      </div>
+      <div class="modal-body">
+
+        <div class="form-section">
+          <div class="form-section-title">Añadir / Editar</div>
+          <div class="form-row">
+            <div class="form-field">
+              <label>Nombre</label>
+              <input type="text" id="champ-name" placeholder="Jinx" />
+            </div>
+            <div class="form-field">
+              <label>Rol</label>
+              <input type="text" id="champ-role" placeholder="Bot" />
+            </div>
+          </div>
+          <div class="form-field">
+            <label>URL Icono</label>
+            <input type="text" id="champ-icon" placeholder="https://ddragon.leagueoflegends.com/..." />
+          </div>
+          <div class="form-actions">
+            <button class="btn-form" id="btn-clear-champ">Limpiar</button>
+            <button class="btn-form primary" id="btn-save-champ">Guardar</button>
+          </div>
+        </div>
+
+        <div class="form-section">
+          <div class="form-section-title">Existentes</div>
+          <div class="champ-list" id="champ-list"></div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <input type="file" id="file-import" accept=".json,.js" style="display:none" />
+  <div class="toast" id="toast"></div>
+
+  <script src="data.js"></script>
+  <script type="module" src="main.js"></script>
+</body>
+</html>
