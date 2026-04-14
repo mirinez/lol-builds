@@ -1,3 +1,4 @@
+/* LoL Builds — 2026-04-14 */
 const lolData = {
     "champions": {
         "Teemo": {
@@ -637,4 +638,3 @@ const lolData = {
         ]
     }
 };
-
