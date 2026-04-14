@@ -1,5 +1,5 @@
 const lolData = {
-    "champions": {
+"champions": {
         "Teemo": {
             "icon": "https://ddragon.leagueoflegends.com/cdn/14.24.1/img/champion/Teemo.png",
             "role": "Top",
@@ -576,19 +576,19 @@ const lolData = {
         },
         {
             "key": "first_item",
-            "label": "MAIN ITEMS"
+            "label": "Main item"
         },
         {
             "key": "second_item",
-            "label": "Half Items"
+            "label": "Half Item"
         },
         {
             "key": "third_item",
-            "label": "MR Items"
+            "label": "MR Item"
         },
         {
             "key": "fourth_item",
-            "label": "Final Items"
+            "label": "Final Item"
         },
         {
             "key": "situational",
